@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Medicine implements Serializable {
     private String medicineName;
     private boolean isFavorite;
-    private int[] imgUrl;
+    private int imgUrlId;
     private boolean ableCrash;
     private String[] crashWarnings;
     private boolean ableCombine;
@@ -18,6 +18,24 @@ public class Medicine implements Serializable {
     private String[] parentalWarnings;
     private boolean forLactation;
     private String[] lactationWarnigns;
+
+    public Medicine(String medicineName, boolean isFavorite,
+                    int imgUrlId, boolean ableCrash, String[] crashWarnings,
+                    boolean ableCombine, String[] combineWarnings, boolean forPrenatal,
+                    String[] parentalWarnings, boolean forLactation, String[] lactationWarnigns) {
+        this.medicineName = medicineName;
+        this.isFavorite = isFavorite;
+        this.imgUrlId = imgUrlId;
+        this.ableCrash = ableCrash;
+        this.crashWarnings = crashWarnings;
+        this.ableCombine = ableCombine;
+        this.combineWarnings = combineWarnings;
+        this.forPrenatal = forPrenatal;
+        this.parentalWarnings = parentalWarnings;
+        this.forLactation = forLactation;
+        this.lactationWarnigns = lactationWarnigns;
+    }
+
 
     public String getMedicineName() {
         return medicineName;
@@ -35,12 +53,12 @@ public class Medicine implements Serializable {
         isFavorite = favorite;
     }
 
-    public int[] getImgUrl() {
-        return imgUrl;
+    public int getImgUrlId() {
+        return imgUrlId;
     }
 
-    public void setImgUrl(int[] imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setImgUrlId(int imgUrlId) {
+        this.imgUrlId = imgUrlId;
     }
 
     public boolean isAbleCrash() {
