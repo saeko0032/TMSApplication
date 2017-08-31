@@ -1,13 +1,29 @@
 package com.example.fukuisaeko.tmsapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+    List<Medicine> medicineList = new ArrayList<>();
+    ArrayList<String> favList;
+    private MedicineAdapter adapter;
+    private RecyclerView recyclerView;
+    private SearchView mySearchView;
 
     private TextView mTextMessage;
 
@@ -18,13 +34,25 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                  //  mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_favorites);
+                    favList = new ArrayList<>();
+                    Intent i = new Intent(MainActivity.this, FavoriteActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if(medicineList.size() != 0) {
+                        for(Medicine medicine:medicineList) {
+                            if (medicine.isFavorite()) {
+                                favList.add(medicine.getMedicineName());
+                            }
+                        }
+                    }
+
+                    i.putStringArrayListExtra("favList", favList);
+                    startActivity(i);
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_share);
+                //    mTextMessage.setText(R.string.title_share);
                     return true;
             }
             return false;
@@ -37,9 +65,65 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
+        prepareMedicineData();
+        recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setSelectedItemId(R.id.navigation_home);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new MedicineAdapter(medicineList, this.getApplicationContext());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void prepareMedicineData() {
+        // String medicineName, boolean isFavorite,
+        Medicine medicine = new Medicine("Medicine1", false, R.drawable.medicine1,
+                false, null, true, null, false, null, true, null);
+        medicineList.add(medicine);
+        medicine = new Medicine("Medicine2", false, R.drawable.medicine1,
+                false, null, false, null, true, null, false, null);
+        medicineList.add(medicine);
+        medicine = new Medicine("Medicine3", false, R.drawable.medicine1,
+                false, null, true, null, false, null, true, null);
+        medicineList.add(medicine);
+        medicine = new Medicine("Medicine4", true, R.drawable.medicine1,
+                false, null, true, null, true, null, true, null);
+        medicineList.add(medicine);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Set Menu
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.toolbar_menu_search);
+
+        mySearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+
+        // whether display Magnifying Glass Icon at first
+        mySearchView.setIconifiedByDefault(true);
+
+        // whether display Submit Button
+        mySearchView.setSubmitButtonEnabled(false);
+
+        mySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
     }
 
 }

@@ -12,11 +12,16 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
+        </activity>
+        <activity android:name=".FirstViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MedicineDetailActivity">
+        </activity>
+        <activity android:name=".FavoriteActivity">
         </activity>
     </application>
 

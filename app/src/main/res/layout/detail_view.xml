@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6AC5E4"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/medicine_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:text="Medicine Name"
+        android:textColor="#FFFFFF"
+        android:textSize="36sp" />
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="300px"
+                    android:layout_weight="1"
+                    android:padding="8dp"
+                    android:src="@drawable/medicine1" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="300px"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2.00"
+                        android:padding="@dimen/activity_vertical_margin"
+                        android:text="Medicine description"
+                        android:textSize="14sp" />
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/detail_animationView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        app:lottie_autoPlay="false"
+                        app:lottie_fileName="favoritestar.json"
+                        app:lottie_loop="false" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200px"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="4"
+                    android:textSize="24sp"
+                    android:text="粉砕可能" />
+
+                <ImageView
+                    android:id="@+id/crashImage"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_panorama_fish_eye_black_24dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200px"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="4"
+                    android:textSize="24sp"
+                    android:text="妊娠婦への処方" />
+
+                <ImageView
+                    android:id="@+id/parentalImage"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_panorama_fish_eye_black_24dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200px"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="4"
+                    android:textSize="24sp"
+                    android:text="授乳婦への処方" />
+
+                <ImageView
+                    android:id="@+id/lactarentImage"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_panorama_fish_eye_black_24dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
