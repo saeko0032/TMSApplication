@@ -194,21 +194,21 @@ public class MainActivity extends AppCompatActivity {
         //Medicine(String medicineName,
         Medicine medicine = new Medicine("Aimix HD","アンジオテンシンIIのタイプ1受容体に対して競合的に拮抗するとともに、細胞内へのCaイオンの流入を減少させて末梢血管の平滑筋を弛緩させることにより、血圧を低下させます。\n" +
                 "通常、高血圧症の治療に用いられます。", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
        // medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
         medicine = new Medicine("Medicine2","Description sample", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
         //  medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
         medicine = new Medicine("Medicine3","Description sample 3", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
         //   medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
         medicine = new Medicine("Medicine4","Description sample 4", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
         //medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);

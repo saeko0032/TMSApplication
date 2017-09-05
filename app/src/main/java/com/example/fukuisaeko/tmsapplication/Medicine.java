@@ -1,6 +1,7 @@
 package com.example.fukuisaeko.tmsapplication;
 
 import java.io.Serializable;
+import java.net.URL;
 
 /**
  * Created by fukuisaeko on 2017-07-30.
@@ -19,6 +20,7 @@ public class Medicine implements Serializable {
     private String parenatalWarnings;
     private boolean forLactation;
     private String lactationWarnigns;
+    private String infoUrl;
 
     public Medicine() {
         //for firebase database
@@ -27,7 +29,7 @@ public class Medicine implements Serializable {
     public Medicine(String medicineName, String medicineDescription,
                     int imgUrlId, boolean ableCrash, String crashWarnings,
                     boolean ableCombine, String combineWarnings, boolean forParenatal,
-                    String parenatalWarnings, boolean forLactation, String lactationWarnigns) {
+                    String parenatalWarnings, boolean forLactation, String lactationWarnigns, String infoUrl) {
         this.medicineName = medicineName;
         this.medicineDescription = medicineDescription;
         this.imgUrlId = imgUrlId;
@@ -39,6 +41,7 @@ public class Medicine implements Serializable {
         this.parenatalWarnings = parenatalWarnings;
         this.forLactation = forLactation;
         this.lactationWarnigns = lactationWarnigns;
+        this.infoUrl = infoUrl;
     }
 
 
@@ -136,5 +139,13 @@ public class Medicine implements Serializable {
 
     public void setMedicineDescription(String medicineDescription) {
         this.medicineDescription = medicineDescription;
+    }
+
+    public String getInfoUrl() {
+        return infoUrl;
+    }
+
+    public void setInfoUrl(String infoUrl) {
+        this.infoUrl = infoUrl;
     }
 }
