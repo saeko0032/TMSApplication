@@ -2,7 +2,6 @@ package com.example.fukuisaeko.tmsapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -42,7 +41,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
             lactationImage.setImageResource(R.drawable.ic_close_black_24dp);
 
         }
-        if(!medicine.isForPrenatal()) {
+        if(!medicine.isForParenatal()) {
             parentImage.setImageResource(R.drawable.ic_close_black_24dp);
         }
         if(medicine.isFavorite()) {

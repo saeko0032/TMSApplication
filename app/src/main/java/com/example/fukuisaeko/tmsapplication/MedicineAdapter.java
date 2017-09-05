@@ -10,6 +10,11 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import static android.R.attr.animation;
@@ -68,12 +73,53 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
 
             @Override
             public void onClick(View view) {
+                String filename = "favorite";
+                String string = medicineList.get(position).getMedicineName();
+                File file = new File(context.getFilesDir(), filename);
+                FileInputStream inputStream;
+                FileOutputStream outputStream;
+
                 if(medicineList.get(position).isFavorite()) {
                     holder.favoriteView.setProgress(0f);
                     medicineList.get(position).setFavorite(false);
+                    StringBuffer stringBuffer = new StringBuffer("");
+                    try {
+                        inputStream = context.openFileInput(filename);
+                        String lineBuffer = null;
+                        String tempStr = string + "\n";
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        while((lineBuffer = reader.readLine()) != null) {
+                            if (!lineBuffer.equals(string)) {
+                                stringBuffer.append(lineBuffer+"\n");
+                            }
+                        }
+                        inputStream.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE);
+                        outputStream.write(stringBuffer.toString().getBytes());
+
+                        outputStream.close();
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     holder.favoriteView.playAnimation();
                     medicineList.get(position).setFavorite(true);
+                    try {
+                        String tempStr = string + "\n";
+                        outputStream = context.openFileOutput(filename, Context.MODE_APPEND);
+                        outputStream.write(tempStr.getBytes());
+
+                        outputStream.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

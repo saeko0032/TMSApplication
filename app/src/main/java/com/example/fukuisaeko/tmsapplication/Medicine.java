@@ -8,30 +8,34 @@ import java.io.Serializable;
 
 public class Medicine implements Serializable {
     private String medicineName;
+    private String medicineDescription;
     private boolean isFavorite;
     private int imgUrlId;
     private boolean ableCrash;
-    private String[] crashWarnings;
+    private String crashWarnings;
     private boolean ableCombine;
-    private String[] combineWarnings;
-    private boolean forPrenatal;
-    private String[] parentalWarnings;
+    private String combineWarnings;
+    private boolean forParenatal;
+    private String parenatalWarnings;
     private boolean forLactation;
-    private String[] lactationWarnigns;
+    private String lactationWarnigns;
 
-    public Medicine(String medicineName, boolean isFavorite,
-                    int imgUrlId, boolean ableCrash, String[] crashWarnings,
-                    boolean ableCombine, String[] combineWarnings, boolean forPrenatal,
-                    String[] parentalWarnings, boolean forLactation, String[] lactationWarnigns) {
+    public Medicine() {
+        //for firebase database
+    }
+
+    public Medicine(String medicineName,
+                    int imgUrlId, boolean ableCrash, String crashWarnings,
+                    boolean ableCombine, String combineWarnings, boolean forParenatal,
+                    String parenatalWarnings, boolean forLactation, String lactationWarnigns) {
         this.medicineName = medicineName;
-        this.isFavorite = isFavorite;
         this.imgUrlId = imgUrlId;
         this.ableCrash = ableCrash;
         this.crashWarnings = crashWarnings;
         this.ableCombine = ableCombine;
         this.combineWarnings = combineWarnings;
-        this.forPrenatal = forPrenatal;
-        this.parentalWarnings = parentalWarnings;
+        this.forParenatal = forParenatal;
+        this.parenatalWarnings = parenatalWarnings;
         this.forLactation = forLactation;
         this.lactationWarnigns = lactationWarnigns;
     }
@@ -69,19 +73,19 @@ public class Medicine implements Serializable {
         this.ableCrash = ableCrash;
     }
 
-    public String[] getCrashWarnings() {
+    public String getCrashWarnings() {
         return crashWarnings;
     }
 
-    public void setCrashWarnings(String[] crashWarnings) {
+    public void setCrashWarnings(String crashWarnings) {
         this.crashWarnings = crashWarnings;
     }
 
-    public String[] getCombineWarnings() {
+    public String getCombineWarnings() {
         return combineWarnings;
     }
 
-    public void setCombineWarnings(String[] combineWarnings) {
+    public void setCombineWarnings(String combineWarnings) {
         this.combineWarnings = combineWarnings;
     }
 
@@ -93,20 +97,20 @@ public class Medicine implements Serializable {
         this.ableCombine = ableCombine;
     }
 
-    public boolean isForPrenatal() {
-        return forPrenatal;
+    public boolean isForParenatal() {
+        return forParenatal;
     }
 
-    public void setForPrenatal(boolean forPrenatal) {
-        this.forPrenatal = forPrenatal;
+    public void setForParenatal(boolean forParenatal) {
+        this.forParenatal = forParenatal;
     }
 
-    public String[] getParentalWarnings() {
-        return parentalWarnings;
+    public String getParenatalWarnings() {
+        return parenatalWarnings;
     }
 
-    public void setParentalWarnings(String[] parentalWarnings) {
-        this.parentalWarnings = parentalWarnings;
+    public void setParenatalWarnings(String parenatalWarnings) {
+        this.parenatalWarnings = parenatalWarnings;
     }
 
     public boolean isForLactation() {
@@ -117,11 +121,11 @@ public class Medicine implements Serializable {
         this.forLactation = forLactation;
     }
 
-    public String[] getLactationWarnigns() {
+    public String getLactationWarnigns() {
         return lactationWarnigns;
     }
 
-    public void setLactationWarnigns(String[] lactationWarnigns) {
+    public void setLactationWarnigns(String lactationWarnigns) {
         this.lactationWarnigns = lactationWarnigns;
     }
 

@@ -21,11 +21,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<Medicine> medicineList = new ArrayList<>();
+    List<Medicine> medicineList;
     ArrayList<String> favList;
     private MedicineAdapter adapter;
     private RecyclerView recyclerView;
@@ -75,13 +80,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        medicineList = new ArrayList<>();
+
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("messages");
+        mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("medicines");
+
+        //prepareMedicineData();
+
         mChildEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Medicine medicine = dataSnapshot.getValue(Medicine.class);
+                // check
+                String filename = "favorite";
+                String string = medicine.getMedicineName();
+                File file = new File(getApplicationContext().getFilesDir(), filename);
+                FileInputStream inputStream;
+                medicine.setFavorite(false);
+
+                    try {
+                        inputStream = getApplicationContext().openFileInput(filename);
+                        String lineBuffer = null;
+                        String tempStr = string + "\n";
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                        while((lineBuffer = reader.readLine()) != null) {
+                            if (lineBuffer.equals(string)) {
+                                medicine.setFavorite(true);
+                            }
+                        }
+                        inputStream.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 medicineList.add(medicine);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -106,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mMessagesDatabaseReference.addChildEventListener(mChildEventListener);
 
-        prepareMedicineData();
+       // prepareMedicineData();
         recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -120,19 +153,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareMedicineData() {
         // String medicineName, boolean isFavorite,
-        Medicine medicine = new Medicine("Medicine1", false, R.drawable.medicine1,
-                false, null, true, null, false, null, true, null);
-        medicineList.add(medicine);
-        medicine = new Medicine("Medicine2", false, R.drawable.medicine1,
-                false, null, false, null, true, null, false, null);
-        medicineList.add(medicine);
-        medicine = new Medicine("Medicine3", false, R.drawable.medicine1,
-                false, null, true, null, false, null, true, null);
-        medicineList.add(medicine);
-        medicine = new Medicine("Medicine4", true, R.drawable.medicine1,
-                false, null, true, null, true, null, true, null);
-        medicineList.add(medicine);
+        //Medicine(String medicineName,
+        Medicine medicine = new Medicine("Aimix HD", R.drawable.medicine1,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+       // medicineList.add(medicine);
+        mMessagesDatabaseReference.push().setValue(medicine);
+        medicine = new Medicine("Medicine2", R.drawable.medicine1,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
 
+        //  medicineList.add(medicine);
+        mMessagesDatabaseReference.push().setValue(medicine);
+        medicine = new Medicine("Medicine3", R.drawable.medicine1,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+
+        //   medicineList.add(medicine);
+        mMessagesDatabaseReference.push().setValue(medicine);
+        medicine = new Medicine("Medicine4", R.drawable.medicine1,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
+
+        //medicineList.add(medicine);
+        mMessagesDatabaseReference.push().setValue(medicine);
     }
 
     @Override
