@@ -15,10 +15,11 @@
         android:textColor="#FFFFFF"
         android:textSize="36sp" />
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="400dp"
         android:layout_gravity="center"
         card_view:cardCornerRadius="20dp">
 
@@ -46,6 +47,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/medicine_description_textView"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="2.00"
@@ -58,6 +60,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:padding="0sp"
                         app:lottie_autoPlay="false"
                         app:lottie_fileName="favoritestar.json"
                         app:lottie_loop="false" />
@@ -74,10 +77,31 @@
                     android:layout_height="200px"
                     android:layout_weight="4"
                     android:textSize="24sp"
-                    android:text="粉砕可能" />
+                    android:text="粉砕" />
 
                 <ImageView
                     android:id="@+id/crashImage"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_panorama_fish_eye_black_24dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="200px"
+                android:orientation="horizontal">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:padding="8dp"
+                    android:layout_height="200px"
+                    android:layout_weight="4"
+                    android:textSize="24sp"
+                    android:text="一包化" />
+
+                <ImageView
+                    android:id="@+id/combineImage"
                     android:layout_width="0dp"
                     android:padding="8dp"
                     android:layout_height="200px"

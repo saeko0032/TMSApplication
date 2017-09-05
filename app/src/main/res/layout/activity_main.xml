@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.fukuisaeko.tmsapplication.MainActivity">
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_spinner"
+        android:entries="@array/order"
+        android:spinnerMode="dialog"
+        />
 
     <LinearLayout
         android:id="@+id/content"

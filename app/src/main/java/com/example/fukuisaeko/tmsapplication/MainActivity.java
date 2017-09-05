@@ -13,6 +13,9 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -27,12 +30,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     List<Medicine> medicineList;
     ArrayList<String> favList;
     private MedicineAdapter adapter;
+    private Spinner spinner;
     private RecyclerView recyclerView;
     private SearchView mySearchView;
 
@@ -79,6 +85,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        spinner = (Spinner)findViewById(R.id.order_spinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                String order = (String)parent.getItemAtPosition(pos);
+                if (order.equals("asc")) {
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine, Medicine t1) {
+                            return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                        }
+                    });
+                    adapter.notifyDataSetChanged();
+                } else {
+                    //medicineList.
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine, Medicine t1) {
+                            return t1.getMedicineName().compareTo(medicine.getMedicineName());
+                        }});
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
 
         medicineList = new ArrayList<>();
 
@@ -154,21 +192,22 @@ public class MainActivity extends AppCompatActivity {
     private void prepareMedicineData() {
         // String medicineName, boolean isFavorite,
         //Medicine(String medicineName,
-        Medicine medicine = new Medicine("Aimix HD", R.drawable.medicine1,
+        Medicine medicine = new Medicine("Aimix HD","アンジオテンシンIIのタイプ1受容体に対して競合的に拮抗するとともに、細胞内へのCaイオンの流入を減少させて末梢血管の平滑筋を弛緩させることにより、血圧を低下させます。\n" +
+                "通常、高血圧症の治療に用いられます。", R.drawable.medicine1,
                 false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
        // medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine2", R.drawable.medicine1,
+        medicine = new Medicine("Medicine2","Description sample", R.drawable.medicine1,
                 false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
 
         //  medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine3", R.drawable.medicine1,
+        medicine = new Medicine("Medicine3","Description sample 3", R.drawable.medicine1,
                 false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
 
         //   medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine4", R.drawable.medicine1,
+        medicine = new Medicine("Medicine4","Description sample 4", R.drawable.medicine1,
                 false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning");
 
         //medicineList.add(medicine);

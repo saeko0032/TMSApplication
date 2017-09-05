@@ -24,11 +24,12 @@ public class Medicine implements Serializable {
         //for firebase database
     }
 
-    public Medicine(String medicineName,
+    public Medicine(String medicineName, String medicineDescription,
                     int imgUrlId, boolean ableCrash, String crashWarnings,
                     boolean ableCombine, String combineWarnings, boolean forParenatal,
                     String parenatalWarnings, boolean forLactation, String lactationWarnigns) {
         this.medicineName = medicineName;
+        this.medicineDescription = medicineDescription;
         this.imgUrlId = imgUrlId;
         this.ableCrash = ableCrash;
         this.crashWarnings = crashWarnings;
@@ -129,4 +130,11 @@ public class Medicine implements Serializable {
         this.lactationWarnigns = lactationWarnigns;
     }
 
+    public String getMedicineDescription() {
+        return medicineDescription;
+    }
+
+    public void setMedicineDescription(String medicineDescription) {
+        this.medicineDescription = medicineDescription;
+    }
 }
