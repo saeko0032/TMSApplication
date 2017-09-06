@@ -1,14 +1,11 @@
 package com.example.fukuisaeko.tmsapplication;
-
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebViewFragment;
-import android.support.v4.app.Fragment;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -73,16 +70,24 @@ public class MedicineDetailActivity extends FragmentActivity {
 
             @Override
             public void onClick(View view) {
-                MedicineInfoFragment miFragment = new MedicineInfoFragment();
-                android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                Intent intent = new Intent(MedicineDetailActivity.this, WebViewActivity.class);
+//                String url = medicine.getInfoUrl();
+//                intent.putExtra("infoUrl",url);
+//                startActivity(intent);
 
-
-                transaction.replace(R.id.detail_frame, miFragment);
-
-                // Commit the transaction
-                transaction.commit();
-
-
+//                MedicineInfoFragment miFragment = new MedicineInfoFragment("http://www.google.com");
+//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//
+//
+//                transaction.replace(R.id.detail_frame, miFragment);
+//
+//                // Commit the transaction
+//                if (miFragment.getWebView() == null) {
+//                    Log.d("webviewfragment", "is null");
+//                    WebView webvie = miFragment.getWebView();
+//                    webvie.loadUrl("http://www.google.com");
+//                }
+//                transaction.commit();
             }
         });
     }
