@@ -1,8 +1,10 @@
 package com.example.fukuisaeko.tmsapplication;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -18,7 +20,7 @@ import org.w3c.dom.Text;
  * Created by fukuisaeko on 2017-08-07.
  */
 
-public class MedicineDetailActivity extends FragmentActivity {
+public class MedicineDetailActivity extends AppCompatActivity {
     private TextView medicineName;
     private TextView medicineDescription;
     private ImageView combineImage;
@@ -70,6 +72,18 @@ public class MedicineDetailActivity extends FragmentActivity {
 
             @Override
             public void onClick(View view) {
+                MedicineInfoFragment wvf = new MedicineInfoFragment("https://www.drugs.com/international/aimix-hd.html");
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.detail_frame, wvf);
+                ft.commit();
+
+
+//                MedicineInfoFragment wvf = new MedicineInfoFragment();
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                ft.replace(R.id.detail_frame, wvf);
+//                ft.commit();
 //                Intent intent = new Intent(MedicineDetailActivity.this, WebViewActivity.class);
 //                String url = medicine.getInfoUrl();
 //                intent.putExtra("infoUrl",url);
