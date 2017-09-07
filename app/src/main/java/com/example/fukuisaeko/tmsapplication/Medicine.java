@@ -1,5 +1,8 @@
 package com.example.fukuisaeko.tmsapplication;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.net.URL;
 
@@ -7,7 +10,7 @@ import java.net.URL;
  * Created by fukuisaeko on 2017-07-30.
  */
 
-public class Medicine implements Serializable {
+public class Medicine implements Serializable, Parcelable {
     private String medicineName;
     private String medicineDescription;
     private boolean isFavorite;
@@ -147,5 +150,15 @@ public class Medicine implements Serializable {
 
     public void setInfoUrl(String infoUrl) {
         this.infoUrl = infoUrl;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

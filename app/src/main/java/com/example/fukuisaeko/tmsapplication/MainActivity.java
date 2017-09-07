@@ -2,6 +2,7 @@ package com.example.fukuisaeko.tmsapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.MenuItemCompat;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fukuisaeko.tmsapplication.favorite.FavoriteActivity;
 import com.google.firebase.database.ChildEventListener;
@@ -34,7 +36,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    List<Medicine> medicineList;
+    private List<Medicine> medicineList;
     ArrayList<String> favList;
     private MedicineAdapter adapter;
     private Spinner spinner;
@@ -46,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
+
+    public List<Medicine> getMedicineList() {
+        return this.medicineList;
+    }
+
+    public void updateMedicineList(Medicine medicine) {
+        for(int i = 0; i< medicineList.size(); i ++) {
+            if (medicineList.get(i).getMedicineName().equals(medicine.getMedicineName())) {
+                medicineList.set(i, medicine);
+            }
+        }
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     i.putStringArrayListExtra("favList", favList);
+                    i.putParcelableArrayListExtra("medicineList", (ArrayList<? extends Parcelable>) medicineList);
                     startActivity(i);
                     return true;
                 case R.id.navigation_notifications:
@@ -184,6 +199,42 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new MedicineAdapter(medicineList, this.getApplicationContext());
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+
+        String filename = "favorite";
+        File file = new File(getApplicationContext().getFilesDir(), filename);
+        FileInputStream inputStream;
+        List<String> favMedicneName = new ArrayList<>();
+        try {
+            inputStream = getApplicationContext().openFileInput(filename);
+            String lineBuffer = null;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            while((lineBuffer = reader.readLine()) != null) {
+                favMedicneName.add(lineBuffer);
+            }
+            inputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (Medicine medicine: medicineList) {
+            for(String name: favMedicneName) {
+                if (name.equals(medicine.getMedicineName())) {
+                    medicine.setFavorite(true);
+                    break;
+                } else {
+                    medicine.setFavorite(false);
+                }
+            }
+        }
+
+        adapter.notifyDataSetChanged();
     }
 
     private void prepareMedicineData() {

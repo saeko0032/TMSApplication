@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity {
     ArrayList<String> favoriteList;
+    ArrayList<? extends Medicine> medicineList;
     private FavoriteAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -28,10 +30,11 @@ public class FavoriteActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         favoriteList =  intent.getStringArrayListExtra("favList");
+        medicineList = intent.getParcelableArrayListExtra("medicineList");
 
         LinearLayoutManager linearMng = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearMng);
-        adapter = new FavoriteAdapter(favoriteList, this.getApplicationContext());
+        adapter = new FavoriteAdapter(favoriteList, medicineList, this.getApplicationContext());
         recyclerView.setAdapter(adapter);
 
     }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.fukuisaeko.tmsapplication.MainActivity;
 import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
 
@@ -83,6 +84,8 @@ public class MedicineDetailActivity extends AppCompatActivity {
 
                 if(medicine.isFavorite()) {
                     favoriteView.setProgress(0f);
+
+
                     medicine.setFavorite(false);
                     StringBuffer stringBuffer = new StringBuffer("");
                     try {
@@ -123,6 +126,11 @@ public class MedicineDetailActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putString("key", "Hello World");
+                intent.putExtras(bundle);
+                setResult(RESULT_OK, intent);
             }
         });
 

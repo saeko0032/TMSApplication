@@ -1,13 +1,16 @@
 package com.example.fukuisaeko.tmsapplication.favorite;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
+import com.example.fukuisaeko.tmsapplication.detail.MedicineDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +24,14 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
 
 
     private List<String> favoriteList;
+    private ArrayList<? extends Medicine> medicineList;
     private int numberOfRows;
     private Context context;
 
-    public FavoriteAdapter(ArrayList<String> favoriteList, Context context) {
+    public FavoriteAdapter(ArrayList<String> favoriteList, ArrayList<? extends Medicine> medicineList, Context context) {
 
         this.favoriteList= favoriteList;
+        this.medicineList = medicineList;
         this.context = context;
     }
 
@@ -68,5 +73,18 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
     @Override
     public void onBindViewHolder(FavoriteAdapter.FavoriteViewHolder holder, final int position) {
         holder.bind(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(context, MedicineDetailActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Medicine tempMedicine = medicineList.get(position);
+                i.putExtra("myObj",tempMedicine);
+                context.startActivity(i);
+            }
+        });
+
+
     }
 }
