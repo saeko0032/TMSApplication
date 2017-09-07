@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.example.fukuisaeko.tmsapplication.MainActivity;
 import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
 
@@ -41,7 +40,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
         setContentView(R.layout.detail_view);
 
         Intent intent = getIntent();
-        final Medicine medicine = (Medicine) intent.getSerializableExtra("myObj");
+        final Medicine medicine = (Medicine) intent.getParcelableExtra("myObj");
 
         medicineName = (TextView) findViewById(R.id.medicine_name);
         medicineDescription = (TextView) findViewById(R.id.medicine_description_textView);
@@ -126,11 +125,6 @@ public class MedicineDetailActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                Intent intent = new Intent();
-                Bundle bundle = new Bundle();
-                bundle.putString("key", "Hello World");
-                intent.putExtras(bundle);
-                setResult(RESULT_OK, intent);
             }
         });
 

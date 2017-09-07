@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.fukuisaeko.tmsapplication.list.MainActivity;
+
 /**
  * Created by fukuisaeko on 2017-08-07.
  */

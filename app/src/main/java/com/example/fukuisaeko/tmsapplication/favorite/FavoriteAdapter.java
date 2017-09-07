@@ -79,9 +79,14 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
             public void onClick(View view) {
                 Intent i = new Intent(context, MedicineDetailActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                Medicine tempMedicine = medicineList.get(position);
-                i.putExtra("myObj",tempMedicine);
-                context.startActivity(i);
+                String medicineName = favoriteList.get(position);
+                for (Medicine medicine: medicineList) {
+                    if (medicineName.equals(medicine.getMedicineName())) {
+                        medicine.setFavorite(true);
+                        i.putExtra("myObj",medicine);
+                        context.startActivity(i);
+                    }
+                }
             }
         });
 

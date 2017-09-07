@@ -10,7 +10,7 @@ import java.net.URL;
  * Created by fukuisaeko on 2017-07-30.
  */
 
-public class Medicine implements Serializable, Parcelable {
+public class Medicine implements Parcelable {
     private String medicineName;
     private String medicineDescription;
     private boolean isFavorite;
@@ -25,8 +25,34 @@ public class Medicine implements Serializable, Parcelable {
     private String lactationWarnigns;
     private String infoUrl;
 
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Medicine createFromParcel(Parcel in) {
+            return new Medicine(in);
+        }
+
+        public Medicine[] newArray(int size) {
+            return new Medicine[size];
+        }
+    };
+
     public Medicine() {
         //for firebase database
+    }
+
+    public Medicine(Parcel in){
+        this.medicineName = in.readString();
+        this.medicineDescription = in.readString();
+        this.imgUrlId = in.readInt();
+        this.isFavorite = in.readByte() != 0;
+        this.ableCrash = in.readByte() != 0;
+        this.crashWarnings = in.readString();
+        this.ableCombine = in.readByte() != 0;
+        this.combineWarnings = in.readString();
+        this.forParenatal = in.readByte() != 0;
+        this.parenatalWarnings = in.readString();
+        this.forLactation = in.readByte() != 0;
+        this.lactationWarnigns = in.readString();
+        this.infoUrl = in.readString();
     }
 
     public Medicine(String medicineName, String medicineDescription,
@@ -158,7 +184,34 @@ public class Medicine implements Serializable, Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(Parcel dest, int i) {
+        /*
+         his.medicineName = in.readString();
+        this.medicineDescription = in.readString();
+        this.imgUrlId = in.readInt();
+        this.ableCrash = in.readByte() != 0;
+        this.crashWarnings = in.readString();
+        this.ableCombine = in.readByte() != 0;
+        this.combineWarnings = in.readString();
+        this.forParenatal = in.readByte() != 0;
+        this.parenatalWarnings = in.readString();
+        this.forLactation = in.readByte() != 0;
+        this.lactationWarnigns = in.readString();
+        this.infoUrl = in.readString();
+         */
 
+        dest.writeString(this.medicineName);
+        dest.writeString(this.medicineDescription);
+        dest.writeInt(this.imgUrlId);
+        dest.writeByte((byte) (isFavorite ? 1 : 0));
+        dest.writeByte((byte) (ableCrash ? 1 : 0));
+        dest.writeString(this.crashWarnings);
+        dest.writeByte((byte) (ableCombine ? 1 : 0));
+        dest.writeString(this.combineWarnings);
+        dest.writeByte((byte) (forParenatal ? 1 : 0));
+        dest.writeString(this.parenatalWarnings);
+        dest.writeByte((byte) (forLactation ? 1 : 0));
+        dest.writeString(this.lactationWarnigns);
+        dest.writeString(this.infoUrl);
     }
 }

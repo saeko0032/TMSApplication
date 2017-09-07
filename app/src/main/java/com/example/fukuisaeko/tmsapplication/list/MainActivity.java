@@ -1,4 +1,4 @@
-package com.example.fukuisaeko.tmsapplication;
+package com.example.fukuisaeko.tmsapplication.list;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +17,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.fukuisaeko.tmsapplication.Medicine;
+import com.example.fukuisaeko.tmsapplication.R;
 import com.example.fukuisaeko.tmsapplication.favorite.FavoriteActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 String string = medicine.getMedicineName();
                 File file = new File(getApplicationContext().getFilesDir(), filename);
                 FileInputStream inputStream;
-                medicine.setFavorite(false);
+                //medicine.setFavorite(false);
 
                     try {
                         inputStream = getApplicationContext().openFileInput(filename);
@@ -156,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
                         while((lineBuffer = reader.readLine()) != null) {
                             if (lineBuffer.equals(string)) {
                                 medicine.setFavorite(true);
+                                break;
+                               // updateMedicineList(medicine);
+                            } else {
+                                medicine.setFavorite(false);
                             }
                         }
                         inputStream.close();
@@ -232,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     medicine.setFavorite(false);
                 }
             }
+            updateMedicineList(medicine);
         }
 
         adapter.notifyDataSetChanged();

@@ -1,4 +1,4 @@
-package com.example.fukuisaeko.tmsapplication;
+package com.example.fukuisaeko.tmsapplication.list;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.fukuisaeko.tmsapplication.Medicine;
+import com.example.fukuisaeko.tmsapplication.R;
 import com.example.fukuisaeko.tmsapplication.detail.MedicineDetailActivity;
 
 import java.io.BufferedReader;
