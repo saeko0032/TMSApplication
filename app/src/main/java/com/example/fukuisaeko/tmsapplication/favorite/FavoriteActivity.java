@@ -1,14 +1,14 @@
-package com.example.fukuisaeko.tmsapplication;
+package com.example.fukuisaeko.tmsapplication.favorite;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.fukuisaeko.tmsapplication.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by fukuisaeko on 2017-08-08.

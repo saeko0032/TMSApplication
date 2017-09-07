@@ -1,4 +1,4 @@
-package com.example.fukuisaeko.tmsapplication;
+package com.example.fukuisaeko.tmsapplication.detail;
 
 
 import android.app.Fragment;
@@ -13,6 +13,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
+
+import com.example.fukuisaeko.tmsapplication.R;
 
 /**
  * Created by saeko on 9/6/2017.

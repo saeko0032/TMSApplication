@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.fukuisaeko.tmsapplication.detail.MedicineDetailActivity;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,8 +17,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-
-import static android.R.attr.animation;
 
 /**
  * Created by fukuisaeko on 2017-08-07.

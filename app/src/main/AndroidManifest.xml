@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MedicineDetailActivity">
+        <activity android:name=".detail.MedicineDetailActivity">
         </activity>
-        <activity android:name=".FavoriteActivity">
+        <activity android:name=".favorite.FavoriteActivity">
         </activity>
     </application>
 
