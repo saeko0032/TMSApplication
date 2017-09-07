@@ -38,68 +38,26 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private List<Medicine> medicineList;
+    private List<Medicine> displayMedicineList; //
     ArrayList<String> favList;
     private MedicineAdapter adapter;
     private Spinner spinner;
     private RecyclerView recyclerView;
     private SearchView mySearchView;
 
-    private TextView mTextMessage;
+    private static final String FILE_NAME = "favorite";
 
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMessagesDatabaseReference;
     private ChildEventListener mChildEventListener;
 
-    public List<Medicine> getMedicineList() {
-        return this.medicineList;
-    }
-
-    public void updateMedicineList(Medicine medicine) {
-        for(int i = 0; i< medicineList.size(); i ++) {
-            if (medicineList.get(i).getMedicineName().equals(medicine.getMedicineName())) {
-                medicineList.set(i, medicine);
-            }
-        }
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                  //  mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    favList = new ArrayList<>();
-                    Intent i = new Intent(MainActivity.this, FavoriteActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    if(medicineList.size() != 0) {
-                        for(Medicine medicine:medicineList) {
-                            if (medicine.isFavorite()) {
-                                favList.add(medicine.getMedicineName());
-                            }
-                        }
-                    }
-
-                    i.putStringArrayListExtra("favList", favList);
-                    i.putParcelableArrayListExtra("medicineList", (ArrayList<? extends Parcelable>) medicineList);
-                    startActivity(i);
-                    return true;
-                case R.id.navigation_notifications:
-                //    mTextMessage.setText(R.string.title_share);
-                    return true;
-            }
-            return false;
-        }
-
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // prepare header part
+        // 1.spinner
         spinner = (Spinner)findViewById(R.id.order_spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
@@ -107,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String order = (String)parent.getItemAtPosition(pos);
                 if (order.equals("asc")) {
+                    // sort list by asc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
                         public int compare(Medicine medicine, Medicine t1) {
@@ -115,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                     adapter.notifyDataSetChanged();
                 } else {
-                    //medicineList.
+                    // sort list by desc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
                         public int compare(Medicine medicine, Medicine t1) {
@@ -127,12 +86,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                // default is asc order
+                Collections.sort(medicineList, new Comparator<Medicine>() {
+                    @Override
+                    public int compare(Medicine medicine, Medicine t1) {
+                        return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                    }
+                });
+                adapter.notifyDataSetChanged();
             }
         });
 
         medicineList = new ArrayList<>();
+        displayMedicineList = new ArrayList<>();
 
+        // connect to firebase realtime database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMessagesDatabaseReference = mFirebaseDatabase.getReference().child("medicines");
 
@@ -143,16 +111,13 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Medicine medicine = dataSnapshot.getValue(Medicine.class);
                 // check
-                String filename = "favorite";
                 String string = medicine.getMedicineName();
-                File file = new File(getApplicationContext().getFilesDir(), filename);
                 FileInputStream inputStream;
                 //medicine.setFavorite(false);
 
                     try {
-                        inputStream = getApplicationContext().openFileInput(filename);
+                        inputStream = getApplicationContext().openFileInput(FILE_NAME);
                         String lineBuffer = null;
-                        String tempStr = string + "\n";
                         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                         while((lineBuffer = reader.readLine()) != null) {
                             if (lineBuffer.equals(string)) {
@@ -243,6 +208,48 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    public void updateMedicineList(Medicine medicine) {
+        for(int i = 0; i< medicineList.size(); i ++) {
+            if (medicineList.get(i).getMedicineName().equals(medicine.getMedicineName())) {
+                medicineList.set(i, medicine);
+            }
+        }
+    }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    //  mTextMessage.setText(R.string.title_home);
+                    return true;
+                case R.id.navigation_dashboard:
+                    favList = new ArrayList<>();
+                    Intent i = new Intent(MainActivity.this, FavoriteActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    if(medicineList.size() != 0) {
+                        for(Medicine medicine:medicineList) {
+                            if (medicine.isFavorite()) {
+                                favList.add(medicine.getMedicineName());
+                            }
+                        }
+                    }
+
+                    i.putStringArrayListExtra("favList", favList);
+                    i.putParcelableArrayListExtra("medicineList", (ArrayList<? extends Parcelable>) medicineList);
+                    startActivity(i);
+                    return true;
+                case R.id.navigation_notifications:
+                    //    mTextMessage.setText(R.string.title_share);
+                    return true;
+            }
+            return false;
+        }
+
+    };
+
     private void prepareMedicineData() {
         // String medicineName, boolean isFavorite,
         //Medicine(String medicineName,
@@ -292,7 +299,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                for (Medicine medicine: medicineList) {
+                    if (medicine.getMedicineName().startsWith(newText)) {
+                        // TODO:
+                        // remain match list and set notifychanged for ada[ter
+                        medicineList.remove(medicine);
+                    }
+                }
                 return false;
             }
         });
