@@ -185,21 +185,6 @@ public class Medicine implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        /*
-         his.medicineName = in.readString();
-        this.medicineDescription = in.readString();
-        this.imgUrlId = in.readInt();
-        this.ableCrash = in.readByte() != 0;
-        this.crashWarnings = in.readString();
-        this.ableCombine = in.readByte() != 0;
-        this.combineWarnings = in.readString();
-        this.forParenatal = in.readByte() != 0;
-        this.parenatalWarnings = in.readString();
-        this.forLactation = in.readByte() != 0;
-        this.lactationWarnigns = in.readString();
-        this.infoUrl = in.readString();
-         */
-
         dest.writeString(this.medicineName);
         dest.writeString(this.medicineDescription);
         dest.writeInt(this.imgUrlId);
