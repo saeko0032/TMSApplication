@@ -3,13 +3,11 @@ package com.example.fukuisaeko.tmsapplication;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-import java.net.URL;
-
 /**
- * Created by fukuisaeko on 2017-07-30.
+ * Created by SaekoF on 2017-09-11.
+ * This class is POJO class for medicine.
+ * This data is binding for firebase realtime database.
  */
-
 public class Medicine implements Parcelable {
     private String medicineName;
     private String medicineDescription;
@@ -29,7 +27,6 @@ public class Medicine implements Parcelable {
         public Medicine createFromParcel(Parcel in) {
             return new Medicine(in);
         }
-
         public Medicine[] newArray(int size) {
             return new Medicine[size];
         }
@@ -37,6 +34,7 @@ public class Medicine implements Parcelable {
 
     public Medicine() {
         //for firebase database
+        //it requires empty constructor
     }
 
     public Medicine(Parcel in){
@@ -185,21 +183,6 @@ public class Medicine implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int i) {
-        /*
-         his.medicineName = in.readString();
-        this.medicineDescription = in.readString();
-        this.imgUrlId = in.readInt();
-        this.ableCrash = in.readByte() != 0;
-        this.crashWarnings = in.readString();
-        this.ableCombine = in.readByte() != 0;
-        this.combineWarnings = in.readString();
-        this.forParenatal = in.readByte() != 0;
-        this.parenatalWarnings = in.readString();
-        this.forLactation = in.readByte() != 0;
-        this.lactationWarnigns = in.readString();
-        this.infoUrl = in.readString();
-         */
-
         dest.writeString(this.medicineName);
         dest.writeString(this.medicineDescription);
         dest.writeInt(this.imgUrlId);

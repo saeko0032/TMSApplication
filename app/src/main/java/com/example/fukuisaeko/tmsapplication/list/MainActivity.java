@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
        // prepareMedicineData();
         recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this));
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -216,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // navigation item
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 

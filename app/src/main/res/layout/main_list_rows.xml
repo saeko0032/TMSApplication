@@ -6,17 +6,20 @@
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/medicine_title"
-        android:padding="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:text="medicine name"
         android:layout_weight="3"
         android:layout_width="0dp"
-        android:textColor="#000000"
+        android:fontFamily="casual"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_vertical"
         android:layout_height="wrap_content" />
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="100px"
+        android:layout_gravity="center_vertical"
         app:lottie_fileName="favoritestar.json"
         app:lottie_loop="false"
         app:lottie_autoPlay="false" />
