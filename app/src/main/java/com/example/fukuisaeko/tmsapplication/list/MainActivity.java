@@ -68,16 +68,16 @@ public class MainActivity extends AppCompatActivity {
                     // sort list by asc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
-                        public int compare(Medicine medicine, Medicine t1) {
-                            return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
                         }
                     });
                 } else {
                     // sort list by desc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
-                        public int compare(Medicine medicine, Medicine t1) {
-                            return t1.getMedicineName().compareTo(medicine.getMedicineName());
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine2.getMedicineName().compareTo(medicine1.getMedicineName());
                         }});
                 }
                 adapter.notifyDataSetChanged();
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 // default is asc order
                 Collections.sort(medicineList, new Comparator<Medicine>() {
                     @Override
-                    public int compare(Medicine medicine, Medicine t1) {
-                        return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                    public int compare(Medicine medicine1, Medicine medicine2) {
+                        return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
                     }
                 });
                 adapter.notifyDataSetChanged();
