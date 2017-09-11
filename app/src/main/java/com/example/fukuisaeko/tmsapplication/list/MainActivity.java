@@ -253,8 +253,7 @@ public class MainActivity extends AppCompatActivity {
     private void prepareMedicineData() {
         // String medicineName, boolean isFavorite,
         //Medicine(String medicineName,
-        Medicine medicine = new Medicine("Aimix HD","アンジオテンシンIIのタイプ1受容体に対して競合的に拮抗するとともに、細胞内へのCaイオンの流入を減少させて末梢血管の平滑筋を弛緩させることにより、血圧を低下させます。\n" +
-                "通常、高血圧症の治療に用いられます。", R.drawable.medicine1,
+        Medicine medicine = new Medicine("Aimix HD","for high blood pressure\n", R.drawable.medicine1,
                 false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
        // medicineList.add(medicine);
         mMessagesDatabaseReference.push().setValue(medicine);

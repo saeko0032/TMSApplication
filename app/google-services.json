@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "49177235288",
+    "firebase_url": "https://tms-app-47cd8.firebaseio.com",
+    "project_id": "tms-app-47cd8",
+    "storage_bucket": "tms-app-47cd8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:49177235288:android:7a968fd30e6a3a97",
+        "android_client_info": {
+          "package_name": "com.example.fukuisaeko.tmsapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "49177235288-0iqcvt4e1f75big6jcsbolsuqmbh6bfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fukuisaeko.tmsapplication",
+            "certificate_hash": "d6ab8ac882c87e23eef704bcb10148a7c5fa2363"
+          }
+        },
+        {
+          "client_id": "49177235288-2f2dftu59t10fqk6o62dmhop1n3fucas.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDezbBtlVHwEsFm8kxHp0lqHL2Z_9-z0QU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "49177235288-2f2dftu59t10fqk6o62dmhop1n3fucas.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
