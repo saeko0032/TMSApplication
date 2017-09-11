@@ -58,30 +58,29 @@ public class MainActivity extends AppCompatActivity {
 
         // prepare header part
         // 1.spinner
-        spinner = (Spinner)findViewById(R.id.order_spinner);
+        spinner = (Spinner) findViewById(R.id.order_spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                String order = (String)parent.getItemAtPosition(pos);
+                String order = (String) parent.getItemAtPosition(pos);
                 if (order.equals("asc")) {
                     // sort list by asc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
-                        public int compare(Medicine medicine, Medicine t1) {
-                            return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
                         }
                     });
-                    adapter.notifyDataSetChanged();
                 } else {
                     // sort list by desc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
-                        public int compare(Medicine medicine, Medicine t1) {
-                            return t1.getMedicineName().compareTo(medicine.getMedicineName());
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine2.getMedicineName().compareTo(medicine1.getMedicineName());
                         }});
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -89,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
                 // default is asc order
                 Collections.sort(medicineList, new Comparator<Medicine>() {
                     @Override
-                    public int compare(Medicine medicine, Medicine t1) {
-                        return medicine.getMedicineName().compareTo(t1.getMedicineName());
+                    public int compare(Medicine medicine1, Medicine medicine2) {
+                        return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
                     }
                 });
                 adapter.notifyDataSetChanged();
@@ -114,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
                 String string = medicine.getMedicineName();
                 FileInputStream inputStream;
                 //medicine.setFavorite(false);
-
                     try {
                         inputStream = getApplicationContext().openFileInput(FILE_NAME);
                         String lineBuffer = null;
