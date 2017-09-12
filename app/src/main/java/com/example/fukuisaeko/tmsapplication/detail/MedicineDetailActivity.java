@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 public class MedicineDetailActivity extends AppCompatActivity {
     private TextView medicineName;
     private TextView medicineDescription;
+    private ImageView medicineImage;
     private ImageView combineImage;
     private ImageView crashImage;
     private ImageView parentImage;
@@ -43,6 +44,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
         final Medicine medicine = (Medicine) intent.getParcelableExtra("myObj");
 
         medicineName = (TextView) findViewById(R.id.medicine_name);
+        medicineImage = (ImageView) findViewById(R.id.medicine_imageView);
         medicineDescription = (TextView) findViewById(R.id.medicine_description_textView);
         combineImage = (ImageView) findViewById(R.id.combineImage);
         crashImage = (ImageView) findViewById(R.id.crashImage);
@@ -52,6 +54,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
         referenceBtn = (Button) findViewById(R.id.reference_btn);
 
         medicineName.setText(medicine.getMedicineName());
+        medicineImage.setImageResource(medicine.getImgUrlId());
         medicineDescription.setText(medicine.getMedicineDescription());
         if (!medicine.isAbleCrash()) {
             crashImage.setImageResource(R.drawable.ic_close_black_24dp);

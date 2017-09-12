@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.design.widget.BottomNavigationView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,9 +30,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
-import com.turingtechnologies.materialscrollbar.DragScrollBar;
-import com.turingtechnologies.materialscrollbar.MaterialScrollBar;
+//import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+//import com.turingtechnologies.materialscrollbar.DragScrollBar;
+//import com.turingtechnologies.materialscrollbar.MaterialScrollBar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     private String sortStr;
     private RecyclerView recyclerView;
     private SearchView mySearchView;
+    private BottomNavigationView navigationView;
 
     private static final String FILE_NAME = "favorite";
 
@@ -63,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        navigationView = (BottomNavigationView)findViewById(R.id.navigation);
 
         // prepare header part
         // 1.spinner
@@ -179,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
        // prepareMedicineData();
         recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
-        ((DragScrollBar)findViewById(R.id.dragScrollBar)).setIndicator(new AlphabetIndicator(this), true);
+    //   ((DragScrollBar)findViewById(R.id.dragScrollBar)).setIndicator(new AlphabetIndicator(this), true);
 //        MaterialScrollBar materialScrollBar = new MaterialScrollBar(getApplicationContext(), recyclerView);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -194,6 +198,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
+
+        navigationView.setSelectedItemId(R.id.navigation_home);
 
         String filename = "favorite";
         File file = new File(getApplicationContext().getFilesDir(), filename);

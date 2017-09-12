@@ -30,12 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
-        <com.turingtechnologies.materialscrollbar.DragScrollBar
-            android:id="@+id/dragScrollBar"
-            android:layout_width="wrap_content"
-            app:msb_recyclerView="@id/medicine_recycler"
-            app:msb_lightOnTouch="true"
-            android:layout_height="match_parent" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView

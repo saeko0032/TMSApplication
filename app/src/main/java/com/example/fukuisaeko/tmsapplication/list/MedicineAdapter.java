@@ -12,7 +12,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
 import com.example.fukuisaeko.tmsapplication.detail.MedicineDetailActivity;
-import com.turingtechnologies.materialscrollbar.INameableAdapter;
+//import com.turingtechnologies.materialscrollbar.INameableAdapter;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,7 +25,7 @@ import java.util.List;
  * Created by fukuisaeko on 2017-08-07.
  */
 
-public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder> implements INameableAdapter {
+public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.MedicineViewHolder> {//implements INameableAdapter {
 
     private List<Medicine> medicineList;
     private int numberOfRows;
@@ -37,12 +37,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         this.context = context;
     }
 
-    @Override
-    public Character getCharacterForElement(int element) {
-        Medicine medicine = medicineList.get(element);
-        Character indexAlpha = medicine.getMedicineName().charAt(0);
-        return indexAlpha;
-    }
+//    @Override
+//    public Character getCharacterForElement(int element) {
+//        Medicine medicine = medicineList.get(element);
+//        Character indexAlpha = medicine.getMedicineName().charAt(0);
+//        return indexAlpha;
+//    }
 
     class MedicineViewHolder extends RecyclerView.ViewHolder {
         TextView medicineTitle;
