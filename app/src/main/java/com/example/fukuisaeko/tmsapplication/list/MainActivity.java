@@ -10,13 +10,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
@@ -26,6 +29,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
+import com.turingtechnologies.materialscrollbar.MaterialScrollBar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,10 +44,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private List<Medicine> medicineList;
-    private List<Medicine> displayMedicineList; //
+    private List<Medicine> orgMedicineList; //
+    private int listSize = 15;
     ArrayList<String> favList;
     private MedicineAdapter adapter;
     private Spinner spinner;
+    private String sortStr;
     private RecyclerView recyclerView;
     private SearchView mySearchView;
 
@@ -65,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 String order = (String) parent.getItemAtPosition(pos);
                 if (order.equals("asc")) {
+                    sortStr = "asc";
                     // sort list by asc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
@@ -72,13 +81,24 @@ public class MainActivity extends AppCompatActivity {
                             return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
                         }
                     });
-                } else {
+                } else if (order.equals("desc")){
+                    sortStr = "desc";
                     // sort list by desc order
                     Collections.sort(medicineList, new Comparator<Medicine>() {
                         @Override
                         public int compare(Medicine medicine1, Medicine medicine2) {
                             return medicine2.getMedicineName().compareTo(medicine1.getMedicineName());
-                        }});
+                        }
+                    });
+                } else {
+                    sortStr = "shape";
+                    // sort list by shape order
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine2.getImgUrlId() - medicine1.getImgUrlId();
+                        }
+                    });
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -97,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         medicineList = new ArrayList<>();
-        displayMedicineList = new ArrayList<>();
+        orgMedicineList = new ArrayList<>();
 
         // connect to firebase realtime database
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -121,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                             if (lineBuffer.equals(string)) {
                                 medicine.setFavorite(true);
                                 break;
-                               // updateMedicineList(medicine);
                             } else {
                                 medicine.setFavorite(false);
                             }
@@ -160,6 +179,8 @@ public class MainActivity extends AppCompatActivity {
        // prepareMedicineData();
         recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
+        ((DragScrollBar)findViewById(R.id.dragScrollBar)).setIndicator(new AlphabetIndicator(this), true);
+//        MaterialScrollBar materialScrollBar = new MaterialScrollBar(getApplicationContext(), recyclerView);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -253,25 +274,67 @@ public class MainActivity extends AppCompatActivity {
     private void prepareMedicineData() {
         // String medicineName, boolean isFavorite,
         //Medicine(String medicineName,
-        Medicine medicine = new Medicine("Aimix HD","for high blood pressure\n", R.drawable.medicine_a,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
-       // medicineList.add(medicine);
+        Medicine medicine = new Medicine("Aimix HD","for high blood pressure\n", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.drugs.com/international/aimix-hd.html");
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine2","Description sample", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
-        //  medicineList.add(medicine);
+        medicine = new Medicine("Almeta","Alimta is an anti-cancer chemotherapy drug.", R.drawable.medicine_type_c,
+                false, "crash warnings", false, "combine warnings", false, "parantal warning", true, "lactation warning", "http://chemocare.com/chemotherapy/drug-info/alimta.aspx");
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine3","Description sample 3", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
-        //   medicineList.add(medicine);
+        medicine = new Medicine("Isodin 10%","Isodin is used to relieve symptoms of anxiety", R.drawable.medicine_type_b,
+                false, "crash warnings", false, "combine warnings", false, "parantal warning", false, "lactation warning", "http://www.ndrugs.com/?s=isodin");
         mMessagesDatabaseReference.push().setValue(medicine);
-        medicine = new Medicine("Medicine4","Description sample 4", R.drawable.medicine1,
-                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.shionogi.co.jp/med/download.php?h=3d5008fc84a74d75624a8e858225c84b");
 
-        //medicineList.add(medicine);
+        medicine = new Medicine("Irbesartan","to treat high blood pressure", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://www.ndrugs.com/?s=irtra");
         mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Endoxan"," to treat various cancerous diseases", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.myvmc.com/drugs/endoxan/");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Grash vista","to repair eye-rush", R.drawable.medicine_type_b,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://www.kawaihifuka.com/treatment_list/grash-vista/");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Clarithromycin","to treat bacterial infections affecting the skin", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.drugs.com/clarithromycin.html");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Claritin 10mg","to treat high blood pressure", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.drugs.com/claritin.html");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        // modified pic
+        medicine = new Medicine("Cymbalta Cupsle","to treat general anxiety disorder", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://www.webmd.com/drugs/2/drug-91491/cymbalta-oral/details");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Symproic"," the treatment of opioid-induced constipation (OIC) in adult patients", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.drugs.com/symproic.html");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Bakuta","to treat high blood pressure", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://mobile.medsfacts.com/report-BAKUTA-causing-ADRENAL%20INSUFFICIENCY.php");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Pirespa","used for the treatment of idiopathic pulmonary fibrosis ", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://evaluategroup.com/Universal/View.aspx?type=Story&id=176815");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Fluitran","to treat high blood pressure", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "hhttp://www.medicatione.com/?c=drug&s=fluitran");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("Fermeta","to treat skin trouble", R.drawable.medicine_type_c,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "https://www.drugs.com/international/fermate.html");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
+        medicine = new Medicine("prednisolone","to treat conditions such as arthritis", R.drawable.medicine_type_a,
+                false, "crash warnings", true, "combine warnings", false, "parantal warning", true, "lactation warning", "http://www.webmd.com/drugs/2/drug-6007-9383/prednisone-oral/prednisone-oral/details");
+        mMessagesDatabaseReference.push().setValue(medicine);
+
     }
 
     @Override
@@ -298,13 +361,55 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                for (Medicine medicine: medicineList) {
-                    if (medicine.getMedicineName().startsWith(newText)) {
-                        // TODO:
-                        // remain match list and set notifychanged for ada[ter
-                        medicineList.remove(medicine);
+                if (listSize != medicineList.size()) {
+                    for (Medicine medicine: orgMedicineList) {
+                        medicineList.add(medicine);
+                    }
+                    // clear substract list data, otherwise might duplicate value
+                    orgMedicineList.clear();
+                }
+
+                if(newText.equals("")) {
+                    if (sortStr.equals("asc")) {
+                        sortStr = "asc";
+                        // sort list by asc order
+                        Collections.sort(medicineList, new Comparator<Medicine>() {
+                            @Override
+                            public int compare(Medicine medicine1, Medicine medicine2) {
+                                return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
+                            }
+                        });
+                    } else if (sortStr.equals("desc")){
+                        sortStr = "desc";
+                        // sort list by desc order
+                        Collections.sort(medicineList, new Comparator<Medicine>() {
+                            @Override
+                            public int compare(Medicine medicine1, Medicine medicine2) {
+                                return medicine2.getMedicineName().compareTo(medicine1.getMedicineName());
+                            }
+                        });
+                    } else {
+                        sortStr = "shape";
+                        // sort list by shape order
+                        Collections.sort(medicineList, new Comparator<Medicine>() {
+                            @Override
+                            public int compare(Medicine medicine1, Medicine medicine2) {
+                                return medicine2.getImgUrlId() - medicine1.getImgUrlId();
+                            }
+                        });
+                    }
+                    adapter.notifyDataSetChanged();
+                    return false;
+                }
+
+                for(int i = medicineList.size() - 1; i > -1; i--) {
+                    Medicine medicine = medicineList.get(i);
+                    if (!medicine.getMedicineName().startsWith(newText)) {
+                        medicineList.remove(i);
+                        orgMedicineList.add(medicine);
                     }
                 }
+                adapter.notifyDataSetChanged();
                 return false;
             }
         });

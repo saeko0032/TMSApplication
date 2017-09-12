@@ -132,7 +132,7 @@ public class MedicineDetailActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                MedicineInfoFragment wvf = new MedicineInfoFragment("https://www.drugs.com/international/aimix-hd.html");
+                MedicineInfoFragment wvf = new MedicineInfoFragment(medicine.getInfoUrl());
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.detail_frame, wvf);
