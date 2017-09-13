@@ -136,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 // check
                 String string = medicine.getMedicineName();
                 FileInputStream inputStream;
-                //medicine.setFavorite(false);
                     try {
                         inputStream = getApplicationContext().openFileInput(FILE_NAME);
                         String lineBuffer = null;
@@ -183,8 +182,6 @@ public class MainActivity extends AppCompatActivity {
        // prepareMedicineData();
         recyclerView = (RecyclerView) findViewById(R.id.medicine_recycler);
         recyclerView.addItemDecoration(new DividerItemDecoration(this));
-    //   ((DragScrollBar)findViewById(R.id.dragScrollBar)).setIndicator(new AlphabetIndicator(this), true);
-//        MaterialScrollBar materialScrollBar = new MaterialScrollBar(getApplicationContext(), recyclerView);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

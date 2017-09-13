@@ -57,7 +57,18 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(favoriteList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(favoriteList, i, i - 1);
+            }
+        }
         notifyItemMoved(fromPosition, toPosition);
+        notifyItemChanged(fromPosition);
+        notifyItemChanged(toPosition);
         return true;
     }
 
@@ -65,6 +76,7 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
     public void onItemDismiss(int position) {
         favoriteList.remove(position);
         notifyItemChanged(position);
+        notifyDataSetChanged();
 
     }
 
@@ -100,6 +112,7 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
     @Override
     public void onBindViewHolder(final FavoriteAdapter.FavoriteViewHolder holder, final int position) {
         holder.bind(position);
+        holder.setIsRecyclable(false);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -86,8 +86,6 @@ public class MedicineDetailActivity extends AppCompatActivity {
 
                 if(medicine.isFavorite()) {
                     favoriteView.setProgress(0f);
-
-
                     medicine.setFavorite(false);
                     StringBuffer stringBuffer = new StringBuffer("");
                     try {
