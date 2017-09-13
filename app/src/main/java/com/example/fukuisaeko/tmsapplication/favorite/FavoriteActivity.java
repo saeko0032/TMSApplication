@@ -107,4 +107,36 @@ public class FavoriteActivity extends AppCompatActivity implements OnStartDragLi
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        favoriteList.clear();
+        String filename = "favorite";
+        File file = new File(getApplicationContext().getFilesDir(), filename);
+        FileInputStream inputStream;
+        FileOutputStream outputStream;
+        StringBuffer stringBuffer = new StringBuffer("");
+        try {
+            inputStream = getApplicationContext().openFileInput(filename);
+            String lineBuffer = null;
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            while ((lineBuffer = reader.readLine()) != null) {
+                for (Medicine medicine : medicineList) {
+                    if (medicine.isFavorite()) {
+                        String string = medicine.getMedicineName();
+                        if (lineBuffer.equals(string)) {
+                            favoriteList.add(medicine);
+                            break;
+                        }
+                    }
+                }
+            }
+            inputStream.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        adapter.notifyDataSetChanged();
+    }
 }

@@ -131,6 +131,8 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (MotionEventCompat.getActionMasked(motionEvent) == MotionEvent.ACTION_DOWN) {
                     mDragStartListener.onStartDrag(holder);
+                } else if (MotionEventCompat.getActionMasked(motionEvent) == MotionEvent.ACTION_OUTSIDE) {
+                    mDragStartListener.onStartDrag(holder);
                 }
                 return false;
             }
