@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity implements OnStartDragListener {
     private ItemTouchHelper mItemTouchHelper;
-    ArrayList<String> favoriteList;
+    ArrayList<Medicine> favoriteList;
     ArrayList<? extends Medicine> medicineList;
     private FavoriteAdapter adapter;
     private RecyclerView recyclerView;
@@ -31,15 +31,20 @@ public class FavoriteActivity extends AppCompatActivity implements OnStartDragLi
         super.onCreate(savedInstaneState);
         setContentView(R.layout.favorite_view);
         recyclerView = (RecyclerView) findViewById(R.id.favorite_recycler);
+        favoriteList = new ArrayList<>();
 
         Intent intent = getIntent();
-        favoriteList = intent.getStringArrayListExtra("favList");
         medicineList = intent.getParcelableArrayListExtra("medicineList");
+        for (Medicine medicine : medicineList) {
+            if (medicine.isFavorite()) {
+                favoriteList.add(medicine);
+            }
+        }
 
         LinearLayoutManager linearMng = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearMng);
 
-        adapter = new FavoriteAdapter(favoriteList, medicineList, this.getApplicationContext(), this);
+        adapter = new FavoriteAdapter(favoriteList, this.getApplicationContext(), this);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
         mItemTouchHelper = new ItemTouchHelper(callback);

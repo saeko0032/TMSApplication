@@ -37,13 +37,6 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         this.context = context;
     }
 
-//    @Override
-//    public Character getCharacterForElement(int element) {
-//        Medicine medicine = medicineList.get(element);
-//        Character indexAlpha = medicine.getMedicineName().charAt(0);
-//        return indexAlpha;
-//    }
-
     class MedicineViewHolder extends RecyclerView.ViewHolder {
         TextView medicineTitle;
         LottieAnimationView favoriteView;

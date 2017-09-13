@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Medicine> medicineList;
     private List<Medicine> orgMedicineList; //
     private int listSize = 15;
-    ArrayList<String> favList;
+//    ArrayList<String> favList;
     private MedicineAdapter adapter;
     private Spinner spinner;
     private String sortStr;
@@ -253,18 +253,18 @@ public class MainActivity extends AppCompatActivity {
                     //  mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
-                    favList = new ArrayList<>();
+//                    favList = new ArrayList<>();
                     Intent i = new Intent(MainActivity.this, FavoriteActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    if(medicineList.size() != 0) {
-                        for(Medicine medicine:medicineList) {
-                            if (medicine.isFavorite()) {
-                                favList.add(medicine.getMedicineName());
-                            }
-                        }
-                    }
-
-                    i.putStringArrayListExtra("favList", favList);
+//                    if(medicineList.size() != 0) {
+//                        for(Medicine medicine:medicineList) {
+//                            if (medicine.isFavorite()) {
+//                                favList.add(medicine.getMedicineName());
+//                            }
+//                        }
+//                    }
+//
+//                    i.putStringArrayListExtra("favList", favList);
                     i.putParcelableArrayListExtra("medicineList", (ArrayList<? extends Parcelable>) medicineList);
                     startActivity(i);
                     return true;

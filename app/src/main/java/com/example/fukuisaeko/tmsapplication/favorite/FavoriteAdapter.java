@@ -2,6 +2,7 @@ package com.example.fukuisaeko.tmsapplication.favorite;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -32,16 +33,14 @@ import java.util.List;
 public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder> implements ItemTouchHelperAdapter {
 
     private final OnStartDragListener mDragStartListener;
-    private List<String> favoriteList;
-    private ArrayList<? extends Medicine> medicineList;
+    private List<Medicine> favoriteList;
     private int numberOfRows;
     private Context context;
 
-    public FavoriteAdapter(ArrayList<String> favoriteList, ArrayList<? extends Medicine> medicineList, Context context, OnStartDragListener dragStartListener) {
+    public FavoriteAdapter(List<Medicine> favoriteList, Context context, OnStartDragListener dragStartListener) {
 
         mDragStartListener = dragStartListener;
         this.favoriteList= favoriteList;
-        this.medicineList = medicineList;
         this.context = context;
     }
 
@@ -72,24 +71,21 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
     class FavoriteViewHolder extends RecyclerView.ViewHolder {
         TextView medicineTitle;
         ImageView medicineImage;
+        TextView medicineDescription;
 
         FavoriteViewHolder(View itemViews) {
             super(itemViews);
-            medicineTitle = (TextView)itemView.findViewById(R.id.favoriteText);
-            medicineImage = (ImageView)itemView.findViewById(R.id.favoriteImage);
+            medicineTitle = (TextView)itemView.findViewById(R.id.favorite_name);
+            medicineImage = (ImageView)itemView.findViewById(R.id.favorite_imagee);
+            medicineDescription = (TextView)itemViews.findViewById(R.id.favorite_description);
         }
 
         public void bind(int index) {
-            String favoriteMedicine = favoriteList.get(index);
-            medicineTitle.setText(String.valueOf(favoriteMedicine));
-            for (Medicine medicine:medicineList) {
-                if (favoriteMedicine.equals(medicine.getMedicineName())) {
-                    medicineImage.setImageResource(medicineList.get(index).getImgUrlId());
-                }
-            }
-
+            Medicine favoriteMedicine = favoriteList.get(index);
+            medicineTitle.setText(String.valueOf(favoriteMedicine.getMedicineName()));
+            medicineImage.setImageResource(favoriteMedicine.getImgUrlId());
+            medicineDescription.setText(String.valueOf(favoriteMedicine.getMedicineDescription()));
         }
-
     }
 
     @Override
@@ -110,14 +106,10 @@ public class FavoriteAdapter  extends RecyclerView.Adapter<FavoriteAdapter.Favor
             public void onClick(View view) {
                 Intent i = new Intent(context, MedicineDetailActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                String medicineName = favoriteList.get(position);
-                for (Medicine medicine: medicineList) {
-                    if (medicineName.equals(medicine.getMedicineName())) {
-                        medicine.setFavorite(true);
-                        i.putExtra("myObj",medicine);
-                        context.startActivity(i);
-                    }
-                }
+                Medicine detailMedicine= favoriteList.get(position);
+                detailMedicine.setFavorite(true);
+                i.putExtra("myObj",detailMedicine);
+                context.startActivity(i);
             }
         });
         holder.itemView.setOnTouchListener(new View.OnTouchListener(){

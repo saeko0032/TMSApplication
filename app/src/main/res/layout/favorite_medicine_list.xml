@@ -11,7 +11,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardElevation="5dp"
-    card_view:cardCornerRadius="10dp"
+    card_view:cardCornerRadius="3dp"
         >
     <LinearLayout
         android:orientation="horizontal"
@@ -19,17 +19,30 @@
         android:layout_height="60dp">
         <ImageView
             android:padding="8dp"
-            android:id="@+id/favoriteImage"
+            android:id="@+id/favorite_imagee"
             android:src="@drawable/medicine1"
             android:layout_width="200px"
             android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <TextView
-            android:padding="16dp"
-            android:id="@+id/favoriteText"
+            android:paddingTop="8dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:id="@+id/favorite_name"
             android:gravity="center_vertical"
             android:text="Medicine name"
-            android:textSize="24sp"
+            android:textSize="14sp"
             android:layout_width="285dp"
             android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/favorite_description"
+                android:text="description"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
