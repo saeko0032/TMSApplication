@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#6AC5E4"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Help us sending new medicine info" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/medicine_name_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Medicine Name"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColorHint="#FFFFFF"/>
+
+    <EditText
+        android:id="@+id/medicine_description_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Medicine Description"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColorHint="#FFFFFF"/>
+
+    <Switch
+        android:id="@+id/isMilling"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Milling"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#FFFFFF"/>
+
+    <Switch
+        android:id="@+id/isBlister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Blister Pack"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#FFFFFF"/>
+
+    <Switch
+        android:id="@+id/isForPregnant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For a pregnant woman"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#FFFFFF"/>
+
+    <Switch
+        android:id="@+id/isForLactating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="For a lactating woman"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColor="#FFFFFF"/>
+
+    <EditText
+        android:id="@+id/medicine_reference_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Reference (ex)http://..."
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColorHint="#FFFFFF"/>
+
+    <EditText
+        android:id="@+id/medicine_comments_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Comments"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:textColorHint="#FFFFFF"/>
+
+    <Button
+        android:id="@+id/send_info_btn"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        style="@style/Widget.AppCompat.Button.Colored" />
+
+</LinearLayout>

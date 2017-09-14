@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.fukuisaeko.tmsapplication.Medicine;
 import com.example.fukuisaeko.tmsapplication.R;
+import com.example.fukuisaeko.tmsapplication.detail.ShareInfoActivity;
 import com.example.fukuisaeko.tmsapplication.favorite.FavoriteActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -266,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                     return true;
                 case R.id.navigation_notifications:
-                    //    mTextMessage.setText(R.string.title_share);
+                    Intent intent = new Intent(MainActivity.this, ShareInfoActivity.class);
+                    startActivity(intent);
                     return true;
             }
             return false;
