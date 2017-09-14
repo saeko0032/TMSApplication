@@ -39,7 +39,7 @@
         android:textColorHint="#FFFFFF"/>
 
     <Switch
-        android:id="@+id/isMilling"
+        android:id="@+id/ableCrash"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Milling"
@@ -47,7 +47,7 @@
         android:textColor="#FFFFFF"/>
 
     <Switch
-        android:id="@+id/isBlister"
+        android:id="@+id/ableCombine"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Blister Pack"
@@ -55,7 +55,7 @@
         android:textColor="#FFFFFF"/>
 
     <Switch
-        android:id="@+id/isForPregnant"
+        android:id="@+id/isForParenatal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="For a pregnant woman"
@@ -63,7 +63,7 @@
         android:textColor="#FFFFFF"/>
 
     <Switch
-        android:id="@+id/isForLactating"
+        android:id="@+id/isForLactation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="For a lactating woman"
