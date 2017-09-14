@@ -155,17 +155,59 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 medicineList.add(medicine);
+                if (sortStr.equals("asc")) {
+                    sortStr = "asc";
+                    // sort list by asc order
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine1.getMedicineName().compareTo(medicine2.getMedicineName());
+                        }
+                    });
+                } else if (sortStr.equals("desc")){
+                    sortStr = "desc";
+                    // sort list by desc order
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine2.getMedicineName().compareTo(medicine1.getMedicineName());
+                        }
+                    });
+                } else {
+                    sortStr = "shape";
+                    // sort list by shape order
+                    Collections.sort(medicineList, new Comparator<Medicine>() {
+                        @Override
+                        public int compare(Medicine medicine1, Medicine medicine2) {
+                            return medicine2.getImgUrlId() - medicine1.getImgUrlId();
+                        }
+                    });
+                }
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Medicine medicine = dataSnapshot.getValue(Medicine.class);
+                for(int i = 0; i < medicineList.size(); i++) {
+                    if (medicine.getMedicineName().equals(medicineList.get(i).getMedicineName())) {
+                        medicineList.set(i, medicine);
+                    }
+                }
 
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Medicine medicine = dataSnapshot.getValue(Medicine.class);
+                for (Medicine med1:medicineList) {
+                    if (medicine.getMedicineName().equals(med1.getMedicineName())) {
+                        medicineList.remove(med1);
+                        break;
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
