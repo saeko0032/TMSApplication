@@ -75,6 +75,7 @@ public class ShareInfoActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(Intent.ACTION_SEND);
+                // mac genymotion didn't work
                 intent.setType("text/html");
                 intent.putExtra(Intent.EXTRA_EMAIL,new String[]{"tmsappmedicine@gmail.com"});
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Medicine info");
